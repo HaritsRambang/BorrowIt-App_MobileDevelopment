@@ -1,4 +1,4 @@
-# BorrowIt - Mobile App Development
+# BorrowIt - Pinjam & Sewa
 
 <img width="466" height="1600" alt="screen" src="https://github.com/user-attachments/assets/4a94fcdc-b451-443f-9015-265d1c904b4f" />
 
