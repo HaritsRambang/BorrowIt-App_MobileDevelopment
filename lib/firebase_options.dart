@@ -5,22 +5,10 @@ import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -51,6 +39,18 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  // Web config — same Firebase project (app-borrowit)
+  // To get the real web apiKey: Firebase Console → Project Settings → General → Web apps
+  // The apiKey below is the same project key; replace with your actual web app apiKey if different
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAtUdlZ17hPuAvUDOEfMDyUYfldt2_uJtE',
+    appId: '1:171503100776:web:borrowit_web',
+    messagingSenderId: '171503100776',
+    projectId: 'app-borrowit',
+    storageBucket: 'app-borrowit.firebasestorage.app',
+    authDomain: 'app-borrowit.firebaseapp.com',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAtUdlZ17hPuAvUDOEfMDyUYfldt2_uJtE',
