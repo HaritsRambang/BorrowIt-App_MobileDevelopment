@@ -14,14 +14,6 @@ Aplikasi ini dirancang dengan fokus pada fungsionalitas manajemen inventaris yan
 * **Track Status**: Memantau apakah suatu barang tersedia, sedang dipinjam, atau dalam masa pemeliharaan.
 * **User-Friendly Interface**: Desain antarmuka yang bersih untuk memudahkan navigasi bagi pengguna baru.
 
-## Known Issues
-
-Saat ini terdapat kendala teknis yang perlu diperhatikan : 
-
-* **Sinkronisasi UI-Aset**: Saat ini terdapat kendala teknis pada pemetaan antara data nama barang dan gambar yang ditampilkan. Terjadi ketidaksesuaian integrasi di mana gambar yang muncul mungkin tidak merepresentasikan nama barang yang dimaksud.
-* **Status Perbaikan**: Logika *data mapping* sedang dalam tahap optimalisasi untuk memastikan setiap entitas data terhubung dengan aset visual yang benar.
-
-
 ---
 **Oleh:**
 * **Nama:** Leyan Harits R W
