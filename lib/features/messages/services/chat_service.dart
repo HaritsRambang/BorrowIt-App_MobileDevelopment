@@ -18,7 +18,6 @@ class ChatService {
     return _db
         .collection(AppConstants.chatsCollection)
         .where('participants', arrayContains: uid)
-        .orderBy('lastMessageAt', descending: true)
         .snapshots();
   }
 
@@ -80,16 +79,20 @@ class ChatService {
   /// Mark all messages as read in a chat room
   Future<void> markAllRead(String chatRoomId) async {
     final uid = _auth.currentUser?.uid ?? '';
+    // Query only one field to avoid composite index requirement
     final unread = await _db
         .collection(AppConstants.chatsCollection)
         .doc(chatRoomId)
         .collection(AppConstants.messagesSubcollection)
         .where('isRead', isEqualTo: false)
-        .where('senderId', isNotEqualTo: uid)
         .get();
+
     final batch = _db.batch();
     for (final doc in unread.docs) {
-      batch.update(doc.reference, {'isRead': true});
+      // Filter the rest client-side
+      if (doc.data()['senderId'] != uid) {
+        batch.update(doc.reference, {'isRead': true});
+      }
     }
     await batch.commit();
   }

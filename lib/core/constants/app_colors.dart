@@ -30,6 +30,8 @@ class AppColors {
   static const Color onTertiaryContainer = Color(0xFFFFD1A5);
   static const Color tertiaryFixed = Color(0xFFFFDCBC);
   static const Color tertiaryFixedDim = Color(0xFFFFB86B);
+  static const Color onTertiaryFixed = Color(0xFF2C1700);
+  static const Color onTertiaryFixedVariant = Color(0xFF683D00);
 
   // Error
   static const Color error = Color(0xFFBA1A1A);

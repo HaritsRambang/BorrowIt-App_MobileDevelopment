@@ -20,6 +20,13 @@ class _HomeCatalogScreenState extends State<HomeCatalogScreen> {
   String _searchQuery = '';
 
   @override
+  void initState() {
+    super.initState();
+    // Populate with sample items if Firestore is empty
+    _itemService.seedSampleItems();
+  }
+
+  @override
   void dispose() {
     _searchCtrl.dispose();
     super.dispose();
@@ -210,7 +217,22 @@ class _HomeCatalogScreenState extends State<HomeCatalogScreen> {
                 if (snapshot.hasError) {
                   return SliverFillRemaining(
                     child: Center(
-                      child: Text('Error: ${snapshot.error}'),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.wifi_off_rounded, size: 56,
+                              color: AppColors.outlineVariant),
+                          const SizedBox(height: 16),
+                          Text('Gagal memuat data',
+                              style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 17, fontWeight: FontWeight.w600,
+                                  color: AppColors.onSurfaceVariant)),
+                          const SizedBox(height: 8),
+                          Text('Periksa koneksi internetmu',
+                              style: GoogleFonts.inter(
+                                  fontSize: 13, color: AppColors.outline)),
+                        ],
+                      ),
                     ),
                   );
                 }
@@ -491,11 +513,46 @@ class _ItemCard extends StatelessWidget {
     );
   }
 
-  Widget _placeholder() => Container(
-        color: AppColors.surfaceContainerLow,
-        child: const Center(
-          child: Icon(Icons.image_outlined,
-              size: 48, color: AppColors.outlineVariant),
-        ),
-      );
+  Widget _placeholder() {
+    IconData icon;
+    Color color;
+    switch (item.category) {
+      case 'Perkakas':
+        icon = Icons.construction_rounded;
+        color = const Color(0xFFFF8C00);
+        break;
+      case 'Elektronik':
+        icon = Icons.devices_rounded;
+        color = const Color(0xFF3B82F6);
+        break;
+      case 'Dapur':
+        icon = Icons.soup_kitchen_rounded;
+        color = const Color(0xFFEF4444);
+        break;
+      case 'Olahraga':
+        icon = Icons.sports_soccer_rounded;
+        color = const Color(0xFF22C55E);
+        break;
+      case 'Buku':
+        icon = Icons.menu_book_rounded;
+        color = const Color(0xFF8B5CF6);
+        break;
+      default:
+        icon = Icons.inventory_2_rounded;
+        color = AppColors.primary;
+    }
+    return Container(
+      color: color.withAlpha(18),
+      child: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Icon(icon, size: 48, color: color.withAlpha(180)),
+          const SizedBox(height: 6),
+          Text(item.category,
+              style: GoogleFonts.inter(
+                  fontSize: 11, color: color.withAlpha(180),
+                  fontWeight: FontWeight.w600)),
+        ]),
+      ),
+    );
+  }
 }

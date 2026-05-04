@@ -28,7 +28,15 @@ class MessagesScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          final docs = snapshot.data?.docs ?? [];
+          var docs = snapshot.data?.docs.toList() ?? [];
+          
+          // Client-side sort to avoid Firestore composite index
+          docs.sort((a, b) {
+            final aAt = (a.data()['lastMessageAt'] as Timestamp?)?.toDate() ?? DateTime(2000);
+            final bAt = (b.data()['lastMessageAt'] as Timestamp?)?.toDate() ?? DateTime(2000);
+            return bAt.compareTo(aAt);
+          });
+
           if (docs.isEmpty) {
             return Center(
               child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
